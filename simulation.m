@@ -3,8 +3,15 @@ fstar = @(x) min(x, 1-x);
 % plot(0:0.001:1, fstar(0:0.001:1))
 
 K = @(x1, x2) (1 + min(x1, x2));
+
+colorstable = [];
+colorstable(1) = 'k';
+colorstable(4) = 'b';
+colorstable(16) = 'g';
+colorstable(64) = 'r';
+
 table = [];
-for N = [256, 384, 512, 768, 1024, 2048, 4096, 8192] %, 512, 1024, 2048, 4096, 8192]
+for N = [256, 384, 512, 768]%, 1024, 2048, 4096, 8192] %, 512, 1024, 2048, 4096, 8192]
 
     fprintf('\nN = %f, ', N)
 XXtest = datasample(rand(6 * N, 1), 2 * N, 'Replace',false);
@@ -18,7 +25,7 @@ clear XXtest;
 %plot(X, Y, 'r.')
 
 
-for m = [4, 16, 64] % 1
+for m = [1, 4, 16, 64] % 1
     funtable = zeros(length(Y), m);
     funtabletest = zeros(length(Ytest), m);
     fprintf('\nm = %f, ', m)
@@ -48,23 +55,23 @@ end
 end
 fprintf('\n');
 figure;
-for m = [4, 16, 64] %1, 
-loglog(table(2, find(table(1, :) == m)), table(3, find(table(1, :) == m)), 's-')
+for m = [1, 4, 16, 64] %1, 
+loglog(table(2, find(table(1, :) == m)), table(3, find(table(1, :) == m)), strcat(colorstable(m), 's-'))
 hold on
-loglog(table(2, find(table(1, :) == m)), table(5, find(table(1, :) == m)), 'd--')
+loglog(table(2, find(table(1, :) == m)), table(5, find(table(1, :) == m)), strcat(colorstable(m), 'd--'))
 hold on
 end
-legend('m = 4', 'm = 4, aggr', 'm = 16', 'm = 16, aggr', 'm = 64', 'm = 64, aggr')
+legend('m = 1', 'm = 1, aggr', 'm = 4', 'm = 4, aggr', 'm = 16', 'm = 16, aggr', 'm = 64', 'm = 64, aggr')
 % 'm = 1', 'm = 1, aggr', 
 grid on
 
 figure;
-for m = [4, 16, 64] % 1, 
-loglog(table(2, find(table(1, :) == m)), table(4, find(table(1, :) == m)), 's-')
+for m = [1, 4, 16, 64] % 1, 
+loglog(table(2, find(table(1, :) == m)), table(4, find(table(1, :) == m)), strcat(colorstable(m), 's-'))
 hold on
-loglog(table(2, find(table(1, :) == m)), table(6, find(table(1, :) == m)), 'd--')
+loglog(table(2, find(table(1, :) == m)), table(6, find(table(1, :) == m)), strcat(colorstable(m), 'd--'))
 hold on
 end
-legend('m = 4', 'm = 4, aggr', 'm = 16', 'm = 16, aggr', 'm = 64', 'm = 64, aggr')
+legend('Test: m = 1', 'm = 1, aggr', 'm = 4', 'm = 4, aggr', 'm = 16', 'm = 16, aggr', 'm = 64', 'm = 64, aggr')
 % 'Test: m = 1', 'm = 1, aggr', 
 grid on
